@@ -1,16 +1,17 @@
 <?xml version="1.0"?>
-<package >
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>$id$</id>
     <version>$version$</version>
     <title>$title$</title>
     <authors>dwrandaz</authors>
     <owners>dwrandaz</owners>
-    <projectUrl>http://dwrandaz.com</projectUrl>
-    <iconUrl>http://dwrandaz.com/dist/bf272e05aa185de3dc2591c9b283de4f.png</iconUrl>
+    <licenseUrl>https://raw.githubusercontent.com/Dwrandaz/AutoUpdateComponent/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Dwrandaz/AutoUpdateComponent</projectUrl>
+    <iconUrl>https://avatars3.githubusercontent.com/u/46024672</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A library for enabling automatic updates for sideloaded UWP apps</description>
-    <releaseNotes>First release</releaseNotes>
+    <releaseNotes>Add license and update icon</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>uwp auto-update</tags>
   </metadata>

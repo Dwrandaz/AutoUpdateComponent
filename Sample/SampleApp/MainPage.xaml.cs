@@ -34,6 +34,8 @@ namespace SampleApp
 
         private async void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
+            statusTextBlock.Text = "Getting the latest update information...";
+
             var path = "http://localhost:5000/install/SampleApp.appinstaller";
             var info = await AutoUpdateManager.CheckForUpdatesAsync(path);
             if (!info.Succeeded)

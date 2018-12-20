@@ -10,11 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomStore", "CustomStore\CustomStore.csproj", "{F3FF43B1-B370-4412-9A7C-EF5FEA49D8F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomStore", "Sample\CustomStore\CustomStore.csproj", "{F3FF43B1-B370-4412-9A7C-EF5FEA49D8F9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{11B03952-6F1B-421B-976B-FD2F68174D8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp", "SampleApp\SampleApp.csproj", "{426AE638-091F-408A-8F56-2FA5A34153A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp", "Sample\SampleApp\SampleApp.csproj", "{426AE638-091F-408A-8F56-2FA5A34153A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

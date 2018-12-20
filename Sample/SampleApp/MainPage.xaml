@@ -8,10 +8,10 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <StackPanel>
+    <StackPanel VerticalAlignment="Center">
         <TextBlock x:Name="versionTextBlock" FontSize="32" HorizontalAlignment="Center" />
-        <TextBlock x:Name="statusTextBlock" FontSize="20" HorizontalAlignment="Center" />
+        <TextBlock x:Name="statusTextBlock" FontSize="20" HorizontalAlignment="Center" Margin="0, 10" />
 
-        <Button x:Name="updateButton" Content="Update" Click="UpdateButton_Click" />
+        <Button x:Name="updateButton" HorizontalAlignment="Center" Content="Update" Click="UpdateButton_Click" />
     </StackPanel>
 </Page>
