@@ -4,18 +4,14 @@
 
 ## How to use
 1. Install the nuget package: [`Dwrandaz.AutoUpdateComponent`](http://nuget.org/packages/Dwrandaz.AutoUpdateComponent)
-
-2. Open the package manifest `.appmanifest` file of the main app and declare an app service:
+2. Set minimum version of the app to `1803`
+3. Open the package manifest `.appmanifest` file of the main app and declare an app service:
    - Name: The default values is `Dwrandaz.AutoUpdate`. However, you can change it to any name you like but you should note that this name is important and it should be passed to `AutoUpdateManager.TryToUpdateAsync` if you don't use the default name.
    - Entry point: `Dwrandaz.AutoUpdateComponent.UpdateTask`
-
-3. Right click on the package manifest `.appmanifest` file and click on `View Code`.
-
-4. Add this namespace declaration: `xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"`
-
-5. Add `rescap` to the `IgnorableNamespaces`, for example: `IgnorableNamespaces="uap mp rescap"`
-
-6. Inside the `Package` tag, make sure these elements exist:
+4. Right click on the package manifest `.appmanifest` file and click on `View Code`.
+5. Add this namespace declaration: `xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"`
+6. Add `rescap` to the `IgnorableNamespaces`, for example: `IgnorableNamespaces="uap mp rescap"`
+7. Inside the `Package` tag, make sure these elements exist:
 
 ```xml
 <Capabilities>
