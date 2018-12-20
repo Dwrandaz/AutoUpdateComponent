@@ -19,6 +19,7 @@
     <rescap:Capability Name="packageManagement" />
 </Capabilities>
 ```
+For more information, take a look at the [sample apps manifest file](https://github.com/Dwrandaz/AutoUpdateComponent/blob/master/Sample/SampleApp/Package.appxmanifest).
 
 8. Example usage:
 ```csharp
