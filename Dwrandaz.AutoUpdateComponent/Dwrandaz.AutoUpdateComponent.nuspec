@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>dwrandaz</authors>
+    <owners>dwrandaz</owners>
+    <projectUrl>http://dwrandaz.com</projectUrl>
+    <iconUrl>http://dwrandaz.com/dist/bf272e05aa185de3dc2591c9b283de4f.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A library for enabling automatic updates for sideloaded UWP apps</description>
+    <releaseNotes>First release</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>uwp auto-update</tags>
+  </metadata>
+</package>
