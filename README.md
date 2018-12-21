@@ -51,6 +51,8 @@ if (!result.Succeeded)
 // Success! The app was updated, it will restart soon!
 ```
 
+See the [Sample app](https://github.com/Dwrandaz/AutoUpdateComponent/blob/master/Sample/SampleApp/MainPage.xaml.cs#L35) for a concrete example.
+
 ## Creating update packages
 
 1. Make sure you select the `Release` configuration
