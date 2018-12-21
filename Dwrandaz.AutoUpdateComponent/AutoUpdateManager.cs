@@ -27,9 +27,9 @@ namespace Dwrandaz.AutoUpdateComponent
         }
 
         /// <summary>
-        /// Try to start the update process if an update is available. If an update is available, the app will be restarted.
-        /// <param name="packageFamilyName">The family name of the package to be updated. Can be obtained through <see cref="Windows.ApplicationModel.Package.Current.Id.FamilyName"/></param>
-        /// <param name="updatePackageLocation">The full path of the .appxbundle file on the server.</param>
+        /// Tries to update and then restart the app. Should only be called if <see cref="UpdateInfo.ShouldUpdate"/> is true.
+        /// </summary>
+        /// <param name="updateInfo">Next update information, can be obtained by calling <see cref="CheckForUpdatesAsync(string)"/></param>
         /// <returns></returns>
         public static IAsyncOperation<UpdateResult> TryToUpdateAsync(UpdateInfo updateInfo)
         {
@@ -37,9 +37,9 @@ namespace Dwrandaz.AutoUpdateComponent
         }
 
         /// <summary>
-        /// Try to start the update process if an update is available. If an update is available, the app will be restarted.
-        /// <param name="packageFamilyName">The family name of the package to be updated. Can be obtained through <see cref="Windows.ApplicationModel.Package.Current.Id.FamilyName"/></param>
-        /// <param name="updatePackageLocation">The full path of the .appxbundle file on the server.</param>
+        /// Tries to update and then restart the app. Should only be called if <see cref="UpdateInfo.ShouldUpdate"/> is true.
+        /// </summary>
+        /// <param name="updateInfo">Next update information, can be obtained by calling <see cref="CheckForUpdatesAsync(string)"/></param>
         /// <param name="updaterServiceName">The name of the background service that's going to perform the update process. This parameter is optional.</param>
         /// <returns></returns>
         public static IAsyncOperation<UpdateResult> TryToUpdateAsync(

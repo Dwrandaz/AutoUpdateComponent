@@ -1,0 +1,1 @@
+nuget pack .\Dwrandaz.AutoUpdateComponent.csproj -Prop Configuration=Release

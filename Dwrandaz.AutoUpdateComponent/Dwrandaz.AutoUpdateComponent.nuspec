@@ -11,7 +11,7 @@
     <iconUrl>https://avatars3.githubusercontent.com/u/46024672</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A library for enabling automatic updates for sideloaded UWP apps</description>
-    <releaseNotes>Add license and update icon</releaseNotes>
+    <releaseNotes>Include xml documentation in the nuget package</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>uwp auto-update</tags>
   </metadata>
