@@ -38,7 +38,7 @@ namespace SampleApp
         {
             statusTextBlock.Text = "Getting the latest update information...";
 
-            var path = "http://localhost:5000/install/AwesomeApp.appinstaller";
+            var path = "https://installgreatapp.azurewebsites.net/SampleApp.appinstaller";
             var info = await AutoUpdateManager.CheckForUpdatesAsync(path);
             if (!info.Succeeded)
             {
@@ -56,10 +56,10 @@ namespace SampleApp
             statusTextBlock.Text = $"New version: {info.MainBundleVersion}";
 
             var progress = new Progress<uint>();
-            progress.ProgressChanged += (s, value) =>
+            progress.ProgressChanged += (s, args) =>
             {
-                Debug.WriteLine(value);
-                progressBar.Value = value;
+                Debug.WriteLine(args);
+                logTextBox.Text += args + "\n";
             };
 
             var result = await AutoUpdateManager.TryToUpdateAsync(info).AsTask(progress);
@@ -70,6 +70,42 @@ namespace SampleApp
             }
 
             statusTextBlock.Text = $"Success! The app will be restarted soon, see you later!";
+        }
+
+        private async void removeButton_Click(object sender, RoutedEventArgs e)
+        {
+            var fullName = AutoUpdateManager.GetCurrentPackageFullName();
+            await AutoUpdateManager.RemoveApp(fullName);
+        }
+
+        private async void installButton_Click(object sender, RoutedEventArgs e)
+        {
+            var path = "https://installgreatapp.azurewebsites.net/SampleApp2.appinstaller";
+            var info = await AutoUpdateManager.GetPackageInfoAsync(path);
+            if (!info.Succeeded)
+            {
+                statusTextBlock.Text = info.ErrorMessage;
+                return;
+            }
+
+            // You can use info.MainBundleVersion to get the update version
+            statusTextBlock.Text = $"Package: {info.MainBundleName} {info.MainBundleVersion}";
+
+            var progress = new Progress<uint>();
+            progress.ProgressChanged += (s, args) =>
+            {
+                Debug.WriteLine(args);
+                logTextBox.Text += args + "\n";
+            };
+
+            var result = await AutoUpdateManager.TryToInstall(info).AsTask(progress);
+            if (!result.Succeeded)
+            {
+                statusTextBlock.Text = result.ErrorMessage;
+                return;
+            }
+
+            statusTextBlock.Text = $"Success!";
         }
     }
 }
