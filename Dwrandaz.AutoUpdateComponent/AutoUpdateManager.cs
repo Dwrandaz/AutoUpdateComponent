@@ -36,9 +36,9 @@ namespace Dwrandaz.AutoUpdateComponent
         }
 
 
-        public static IAsyncOperation<DeployResult> RemoveApp(string fullName)
+        private static IAsyncOperation<DeployResult> RemoveApp(Package package)
         {
-            return AsyncInfo.Run(token => RemoveAppAsync(token, fullName, Constants.DwrandazUpdaterAppService));
+            return AsyncInfo.Run(token => RemoveAppAsync(token, package.Id.FullName, Constants.DwrandazUpdaterAppService));
         }
 
         private static async Task<DeployResult> RemoveAppAsync(
@@ -106,7 +106,7 @@ namespace Dwrandaz.AutoUpdateComponent
         /// </summary>
         /// <param name="updateInfo">The package information, can be obtained by calling <see cref="GetPackageInfoAsync(string)"/></param>
         /// <returns></returns>
-        public static IAsyncOperationWithProgress<DeployResult, uint> TryToInstall(PackageInfo updateInfo)
+        private static IAsyncOperationWithProgress<DeployResult, uint> TryToInstall(PackageInfo updateInfo)
         {
             return TryToInstall(updateInfo, Constants.DwrandazUpdaterAppService);
         }
@@ -117,7 +117,7 @@ namespace Dwrandaz.AutoUpdateComponent
         /// <param name="updateInfo">The package information,, can be obtained by calling <see cref="GetPackageInfoAsync(string)"/></param>
         /// <param name="updaterServiceName">The name of the background service that's going to perform the install process. This parameter is optional.</param>
         /// <returns></returns>
-        public static IAsyncOperationWithProgress<DeployResult, uint> TryToInstall(
+        private static IAsyncOperationWithProgress<DeployResult, uint> TryToInstall(
             PackageInfo updateInfo,
             string updaterServiceName
             )
@@ -266,7 +266,7 @@ namespace Dwrandaz.AutoUpdateComponent
 
         private static async Task<UpdatePackageInfo> CheckForUpdatesAsyncImpl(string appinstallerUrl)
         {
-            var packageInfo = await CheckForUpdatesAsyncImpl(appinstallerUrl);
+            var packageInfo = await GetPackageInfoAsyncImpl(appinstallerUrl);
 
             // Make sure the update is for the current package
             if (packageInfo.MainBundleName != Package.Current.Id.Name)
@@ -278,7 +278,7 @@ namespace Dwrandaz.AutoUpdateComponent
                 packageInfo.MainBundleName,
                 packageInfo.MainBundleUrl,
                 packageInfo.MainBundleVersion,
-                packageInfo.ShouldUpdate);
+                shouldUpdate);
         }
 
         // This method is here because of some limitations regarding to WinRT components.
