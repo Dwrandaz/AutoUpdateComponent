@@ -11,25 +11,20 @@
     <AssemblyName>SampleApp</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <PackageCertificateKeyFile>
-    </PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>SampleApp_TemporaryKey.pfx</PackageCertificateKeyFile>
     <GenerateAppInstallerFile>True</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
-    <AppInstallerUri>https://installgreatapp.azurewebsites.net/</AppInstallerUri>
+    <AppInstallerUri>http://localhost:5000/install</AppInstallerUri>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>Weekly</AppInstallerCheckForUpdateFrequency>
-    <PackageCertificateThumbprint>3FBFCDF19213DE4A0314781D17EA3B3B3E40E447</PackageCertificateThumbprint>
-    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-    <GenerateTestArtifacts>True</GenerateTestArtifacts>
-    <HoursBetweenUpdateChecks>168</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -165,15 +160,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Dwrandaz.AutoUpdateComponent">
+      <Version>1.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.3</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Dwrandaz.AutoUpdateComponent\Dwrandaz.AutoUpdateComponent.csproj">
-      <Project>{feab7433-1315-4c0b-8253-f67162b7f9de}</Project>
-      <Name>Dwrandaz.AutoUpdateComponent</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

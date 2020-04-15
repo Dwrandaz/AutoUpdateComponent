@@ -3,14 +3,14 @@
     /// <summary>
     /// The result of an update operation.
     /// </summary>
-    public sealed class DeployResult
+    public sealed class UpdateResult
     {
-        public DeployResult()
+        public UpdateResult()
         {
             Succeeded = true;
         }
 
-        public DeployResult(string error)
+        public UpdateResult(string error)
         {
             Succeeded = false;
             ErrorMessage = error;
