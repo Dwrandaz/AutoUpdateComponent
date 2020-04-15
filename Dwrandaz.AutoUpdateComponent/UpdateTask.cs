@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
 using Windows.Foundation.Collections;
@@ -15,6 +18,7 @@ namespace Dwrandaz.AutoUpdateComponent
     public sealed class UpdateTask : IBackgroundTask
     {
         private BackgroundTaskDeferral _serviceDeferral;
+        private AppServiceTriggerDetails _details;
 
         public void Run(IBackgroundTaskInstance taskInstance)
         {
@@ -23,8 +27,8 @@ namespace Dwrandaz.AutoUpdateComponent
             taskInstance.Canceled += OnTaskCanceled;
 
             // Listen for incoming app service requests
-            var details = taskInstance.TriggerDetails as AppServiceTriggerDetails;
-            details.AppServiceConnection.RequestReceived += OnRequestReceived;
+            _details = taskInstance.TriggerDetails as AppServiceTriggerDetails;
+            _details.AppServiceConnection.RequestReceived += OnRequestReceived;
         }
 
         private void OnTaskCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
@@ -45,15 +49,23 @@ namespace Dwrandaz.AutoUpdateComponent
 
             try
             {
-                string packageLocation = message[Constants.UpdatePackageLocation] as string;
-
-                // Try to update the app
+                var verb = message[Constants.Verb] as string;
                 PackageManager manager = new PackageManager();
-                var result = await manager.UpdatePackageAsync(new Uri(packageLocation), null, DeploymentOptions.ForceApplicationShutdown);
 
-                if (!string.IsNullOrEmpty(result.ErrorText))
+                if (verb == Constants.UpdateVerb)
                 {
-                    await args.Request.SendResponseAsync(new ValueSet { { Constants.ErrorMessage, result.ErrorText } });
+                    string packageLocation = message[Constants.PackageLocation] as string;
+                    await DeployApp(args, packageLocation, manager, DeployOperation.Update);
+                }
+                else if (verb == Constants.InstallVerb)
+                {
+                    string packageLocation = message[Constants.PackageLocation] as string;
+                    await DeployApp(args, packageLocation, manager, DeployOperation.Install);
+                }
+                else if (verb == Constants.RemoveVerb)
+                {
+                    string removePackageId = message[Constants.PackageId] as string;
+                    await RemoveApp(args, removePackageId, manager);
                 }
             }
             catch (Exception e)
@@ -64,6 +76,58 @@ namespace Dwrandaz.AutoUpdateComponent
             {
                 // Complete the message deferral so the platform knows we're done responding
                 messageDeferral.Complete();
+            }
+        }
+
+        private async Task RemoveApp(AppServiceRequestReceivedEventArgs args, string removePackageId, PackageManager manager)
+        {
+            var result = await manager.RemovePackageAsync(removePackageId);
+            if (!string.IsNullOrEmpty(result.ErrorText))
+            {
+                await args.Request.SendResponseAsync(new ValueSet { { Constants.ErrorMessage, result.ErrorText } });
+            }
+            else
+            {
+                await args.Request.SendResponseAsync(new ValueSet { { Constants.Success, true } });
+            }
+        }
+
+        private async Task DeployApp(AppServiceRequestReceivedEventArgs args, string packageLocation, PackageManager manager, DeployOperation operation)
+        {
+            var deploymentOpations = DeploymentOptions.ForceApplicationShutdown;
+            var uri = new Uri(packageLocation);
+
+            var volume = manager.FindPackageVolumes()
+                .FirstOrDefault(v => v.IsAppxInstallSupported && v.IsFullTrustPackageSupported);
+
+            if (volume is null)
+            {
+                throw new InvalidOperationException("Could not find a volume to install the package on.");
+            }
+
+            // https://github.com/colinkiama/UWP-Package-Installer/blob/master/installTask/install.cs
+            var deploymentOperation = operation == DeployOperation.Install ?
+                manager.AddPackageAsync(uri, new List<Uri>(), DeploymentOptions.ForceApplicationShutdown) :
+                manager.UpdatePackageAsync(uri, null, deploymentOpations);
+
+            var progress = new Progress<DeploymentProgress>();
+            progress.ProgressChanged += async (s, e) =>
+            {
+                await _details.AppServiceConnection.SendMessageAsync(new ValueSet
+                {
+                    { Constants.DeploymentProgress, e.percentage },
+                });
+            };
+
+            var result = await deploymentOperation.AsTask(progress);
+
+            if (!string.IsNullOrEmpty(result.ErrorText))
+            {
+                await args.Request.SendResponseAsync(new ValueSet { { Constants.ErrorMessage, result.ErrorText } });
+            }
+            else
+            {
+                await args.Request.SendResponseAsync(new ValueSet { { Constants.Success, true } });
             }
         }
     }
