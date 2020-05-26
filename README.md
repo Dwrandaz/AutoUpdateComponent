@@ -69,7 +69,16 @@ See the [Sample app](https://github.com/Dwrandaz/AutoUpdateComponent/blob/master
 
 - https://docs.microsoft.com/en-us/windows/uwp/packaging/web-install-iis
 
+## Troubleshooting
+ - Before using the library, make sure your web app (that's serving the update package) works correctly. To do this, try to manually update the app by going to your web app and clicking on install and then clicking on update. This will help you avoid a lot of head ache.
+ - Configuring your web app can take quite some time. Instead use a free [Azure Web App](https://docs.microsoft.com/en-us/azure/app-service-web/) and upload your package via FTP. Azure Blob Storage works great too. It's also much faster than Azure App Service.
+
+If you have any other tips, let me know or better yet send a pull request :)
+
 ## More information
+- https://mazeez.dev/posts/update-sideloaded-uwp
+- https://mazeez.dev/posts/uwp-devops
+- https://mazeez.dev/posts/update-sideloaded-uwp-2
 
 - https://matthijs.hoekstraonline.net/2016/09/27/auto-updater-for-my-side-loaded-uwp-apps/
 - http://blog.infernored.com/how-to-push-updates-to-raspberry-pi-uwp-apps-in-prod
