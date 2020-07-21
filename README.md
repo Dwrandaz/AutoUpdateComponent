@@ -72,7 +72,7 @@ See the [Sample app](https://github.com/Dwrandaz/AutoUpdateComponent/blob/master
 ## Troubleshooting
  - Before using the library, make sure your web app (that's serving the update package) works correctly. To do this, try to manually update the app by going to your web app and clicking on install and then clicking on update. This will help you avoid a lot of head ache.
  - Configuring your web app can take quite some time. Instead use a free [Azure Web App](https://docs.microsoft.com/en-us/azure/app-service-web/) and upload your package via FTP. Azure Blob Storage works great too. It's also much faster than Azure App Service.
-
+ - Kiosk Mode Problems: take a look at #2.
 If you have any other tips, let me know or better yet send a pull request :)
 
 ## More information
